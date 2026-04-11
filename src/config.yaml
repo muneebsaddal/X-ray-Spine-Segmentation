@@ -1,0 +1,17 @@
+data:
+  raw_dir: "data/raw/verse_sample"
+  verse_data_dir: "data/verse225"
+  processed_dir: "data/processed/verse225_xray"
+  nnunet_raw: "data/nnunet_raw"
+
+model:
+  type: "custom_unet"
+  n_channels: 1
+  n_classes: 1
+  path: "outputs/models/custom_unet.pth"
+
+training:
+  epochs: 5
+  batch_size: 2
+  learning_rate: 0.0001
+  device: "cpu" # Default to CPU if no GPU
