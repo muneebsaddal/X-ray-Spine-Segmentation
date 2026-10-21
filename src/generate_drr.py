@@ -105,6 +105,7 @@ def generate_drr(
 
     # X-ray convention: bones appear dark → invert
     drr = 1.0 - drr
+    drr = np.clip(drr, 0.0, 1.0)
 
     return drr.astype(np.float32)
 
@@ -278,7 +279,10 @@ def process_dataset(
                 ct_path.parent / "verse225_seg.nii.gz",  # Specific for VerSe 2019 sample
             ]
 
-            label_path = next((p for p in label_candidates if p.exists()), label_candidates[0])
+            label_path = next(
+                (p for p in label_candidates if p.exists() and p.resolve() != ct_path.resolve()),
+                label_candidates[0],
+            )
 
             ok = process_case(
                 ct_path=ct_path,
